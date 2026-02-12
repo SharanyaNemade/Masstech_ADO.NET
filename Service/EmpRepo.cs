@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.SqlClient;
 
 class EmpRepo : IEmpRepo
@@ -7,9 +7,7 @@ class EmpRepo : IEmpRepo
 
     public EmpRepo()
     {
-        conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=febbatch2026;Integrated Security=True;" +
-            "Encrypt=False;MultipleActiveResultSets=True");
-
+        conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sharanya;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True"); 
         conn.Open();
     }
 
@@ -33,26 +31,27 @@ class EmpRepo : IEmpRepo
 
 
 
-public void FetchEmp()
-{
-    string q = "exec sp_fetchEmpList";
-    SqlCommand cmd = new SqlCommand(q, conn);
-    SqlDataReader rdr = cmd.ExecuteReader();
-    if (rdr.HasRows)
+
+    public void FetchEmp()
     {
-        while (rdr.Read())
+        string q = "exec sp_fetchEmpList";
+        SqlCommand cmd = new SqlCommand(q, conn);
+        SqlDataReader rdr = cmd.ExecuteReader();
+        if (rdr.HasRows)
         {
-            int id = int.Parse(rdr["id"].ToString());
-            string name = rdr["name"].ToString();
-            double sal = double.Parse(rdr["salary"].ToString());
-            double pf = double.Parse(rdr["pf"].ToString());
-            double netsal = double.Parse(rdr["netsal"].ToString());
-            Console.WriteLine($"ID : {id} \nName : {name} \nSalary : {sal}\nPf : {pf}\nNet Salary: {netsal}\n");
+            while (rdr.Read())
+            {
+                int id = int.Parse(rdr["id"].ToString());
+                string name = rdr["name"].ToString();
+                double sal = double.Parse(rdr["salary"].ToString());
+                double pf = double.Parse(rdr["pf"].ToString());
+                double netsal = double.Parse(rdr["netsal"].ToString());
+                Console.WriteLine($"ID : {id} \nName : {name} \nSalary : {sal}\nPf : {pf}\nNet Salary: {netsal}\n");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No Data");
         }
     }
-    else
-    {
-        Console.WriteLine("No Data");
-    }
-   }
 }
