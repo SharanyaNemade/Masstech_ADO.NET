@@ -7,7 +7,8 @@ class EmpRepo : IEmpRepo
 
     public EmpRepo()
     {
-        conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=sharanya;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True"); 
+        conn = new SqlConnection("Data Source=DESKTOP-B87N1ET\\SQLEXPRESS;Initial Catalog = sharanya;Integrated Security = True;TrustServerCertificate = True;Encrypt = False;MultipleActiveResultSets = True");
+
         conn.Open();
     }
 
