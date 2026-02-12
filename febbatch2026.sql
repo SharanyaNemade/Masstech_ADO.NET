@@ -1,4 +1,6 @@
-create database febbatch2026;
+create database sharanya;
+
+use sharanya;
 
 create table emp
 (
@@ -10,23 +12,27 @@ create table emp
 );
 
 
+CREATE procedure sp_SaveEmp
+@name VARCHAR(100),
+@salary decimal(9,2)
 
-alter proc sp_SaveEmp
-    @name varchar(100),
-    @salary decimal(9,2)
-as
-begin
-    declare @pfamt decimal(9,2);
-    declare @NetSal decimal(9,2);
-    set @pfamt= @salary *0.1;
-    set @NetSal=@salary-@pfamt;
-    insert into emp values (@name ,@salary ,@pfamt ,@NetSal);
-end
+AS
 
+BEGIN
+DECLARE @pfamt decimal(9,2);
+DECLARE @NetSal decimal(9,2);
 
+SET @pfamt = @salary * 0.10;
+SET @NetSal = @salary - @pfamt;
 
 
-create proc sp_fetchEmpList
+INSERT INTO emp(name, salary, pf, netsal)
+VALUES(@name, @salary, @pfamt,@NetSal);
+
+END
+
+
+create procedure sp_fetchEmpList
 as
 begin
     select * from emp;
